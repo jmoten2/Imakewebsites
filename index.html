@@ -1,123 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>I Make Websites</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --bg-color: #000000;
-      --card-bg: #120a0a;
-      --border-color: #3b1111;
-      --text-main: #ffffff;
-      --text-muted: #d1d5db;
-      --accent: #dc2626;
-      --accent-hover: #b91c1c;
-      --accent-light: #ef4444;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Make Websites</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #000000;
+            --card-bg: #120a0a;
+            --border-color: #3b1111;
+            --text-main: #ffffff;
+            --text-muted: #d1d5db;
+            --accent: #dc2626;
+            --accent-hover: #b91c1c;
+            --accent-light: #ef4444;
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      font-family: "Plus Jakarta Sans", sans-serif;
-      line-height: 1.6;
-      scroll-behavior: smooth;
-    }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: "Plus Jakarta Sans", sans-serif;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
 
-    code, pre, .code-font {
-      font-family: "Fira Code", monospace;
-    }
+        code, pre, .code-font {
+            font-family: "Fira Code", monospace;
+        }
 
-    h1, h2, h3, .section-title, .hero-heading, .hero-subheading, .pricing-tag, .brief-summary-title {
-      font-family: "Syne", sans-serif;
-    }
+        h1, h2, h3, .section-title, .hero-heading, .hero-subheading, .pricing-tag, .brief-summary-title {
+            font-family: "Syne", sans-serif;
+        }
 
-    /* Navigation */
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-color);
-      z-index: 1000;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    nav ul {
-      display: flex;
-      list-style: none;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
 
-    nav a {
-      color: var(--text-main);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: color 0.2s;
-    }
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.2s;
+        }
 
-    nav a:hover {
-      color: var(--accent);
-    }
+        nav a:hover {
+            color: var(--accent);
+        }
 
-    /* Hero Section & Profile Picture Styles */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 8rem 2rem 4rem;
-    }
+        /* Hero Section & Profile Picture */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+        }
 
-    .profile-pic {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--accent);
-      box-shadow: 0 0 20px rgba(220, 38, 38, 0.35);
-      margin-bottom: 1.5rem;
-    }
-  </style>
+        .profile-pic {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 20px rgba(220, 38, 38, 0.35);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Project Brief Section */
+        .brief-section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            max-width: 600px;
+            margin: 2rem auto;
+            text-align: left;
+        }
+
+        .brief-summary-title {
+            font-size: 1.25rem;
+            color: var(--accent-light);
+            margin-bottom: 1rem;
+        }
+
+        .brief-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .brief-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .brief-list li:last-child {
+            border-bottom: none;
+        }
+
+        .brief-label {
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .brief-value {
+            color: var(--text-muted);
+        }
+    </style>
 </head>
 <body>
 
-  <nav>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+    <nav>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-  <section class="hero" id="about">
-    <!-- Profile Picture Added Here -->
-    <img src="profile.jpg" alt="Profile Picture" class="profile-pic">
-    
-    <h1 class="hero-heading">I Make Websites</h1>
-    <p class="hero-subheading">Custom, high-performance Web development & design.</p>
-  </section>
+    <section class="hero" id="about">
+        <img src="profile.jpg" alt="Profile Picture" class="profile-pic">
+        <h1 class="hero-heading">I Make Websites</h1>
+        <p class="hero-subheading">Custom, high-performance Web development & design.</p>
+
+        <!-- Compiled Project Brief Section -->
+        <div class="brief-section">
+            <h2 class="brief-summary-title">Compiled Project Brief</h2>
+            <ul class="brief-list">
+                <li>
+                    <span class="brief-label">1. Main Goal:</span>
+                    <span class="brief-value">Not specified yet</span>
+                </li>
+                <li>
+                    <span class="brief-label">2. Pages Needed:</span>
+                    <span class="brief-value">Single Page</span>
+                </li>
+                <li>
+                    <span class="brief-label">3. Visual Style:</span>
+                    <span class="brief-value">Not specified yet</span>
+                </li>
+                <li>
+                    <span class="brief-label">4. Features Needed:</span>
+                    <span class="brief-value">None specified yet</span>
+                </li>
+            </ul>
+        </div>
+    </section>
 
 </body>
 </html>
