@@ -507,6 +507,7 @@
         margin: 0 auto;
         max-width: 100%;
         border-radius: 6px;
+        cursor: pointer;
       }
 
       .game-controls {
@@ -740,7 +741,7 @@
       </form>
     </section>
 
-    <!-- FAQ Section (Repeated Questions) -->
+    <!-- FAQ Section -->
     <section id="faq">
       <h2 class="section-title">Frequently Asked Questions</h2>
       <p style="margin-bottom: 1.5rem; color: var(--text-muted)">
@@ -801,7 +802,7 @@
       </div>
     </section>
 
-    <!-- Reviews & Comments Section -->
+    <!-- Reviews Section -->
     <section id="reviews">
       <h2 class="section-title">Client Reviews & Comments</h2>
       <p style="margin-bottom: 1.5rem; color: var(--text-muted)">
@@ -883,7 +884,7 @@
       const profileImage = document.getElementById("profile-image");
       const profileUpload = document.getElementById("profile-upload");
       const removeProfilePhoto = document.getElementById(
-        "remove-profile-photo",
+        "remove-profile-photo"
       );
       const ownerControls = document.getElementById("owner-controls");
       const profileImageStorageKey = "jm_profile_image";
@@ -897,7 +898,6 @@
         if (enabled) profileUpload.focus();
       }
 
-      // Hidden owner-only editing shortcut. Visitors see no photo controls.
       document.addEventListener("keydown", (event) => {
         if (
           (event.ctrlKey || event.metaKey) &&
@@ -995,7 +995,7 @@
         input.value = "";
       }
 
-      // Reviews & Comments System with LocalStorage Persistence
+      // Reviews & Comments System
       function loadReviews() {
         const savedReviews =
           JSON.parse(localStorage.getItem("jm_reviews")) || [];
@@ -1006,7 +1006,7 @@
             rev.name,
             rev.rating,
             rev.comment,
-            rev.date,
+            rev.date
           );
           container.prepend(card);
         });
@@ -1059,7 +1059,7 @@
 
         const subject = encodeURIComponent(`Website Project Inquiry - ${name}`);
         const body = encodeURIComponent(
-          `Hi Jarrelle,\n\nName: ${name}\n\nPROJECT BRIEF:\n${briefText}\n\nMESSAGE / ADDITIONAL NOTES:\n${userMsg}`,
+          `Hi Jarrelle,\n\nName: ${name}\n\nPROJECT BRIEF:\n${briefText}\n\nMESSAGE / ADDITIONAL NOTES:\n${userMsg}`
         );
 
         window.location.href = `mailto:jmoten2@charlotte.edu?subject=${subject}&body=${body}`;
@@ -1082,27 +1082,36 @@
       let frame = 0;
       let score = 0;
       let gameOver = false;
+      let animationFrameId = null;
 
       let baseSpeed = 3;
       let currentSpeed = 3;
       let spawnInterval = 90;
 
       function jump() {
-        if (player.grounded && !gameOver) {
+        if (gameOver) {
+          resetGame();
+          return;
+        }
+        if (player.grounded) {
           player.dy = player.jump;
           player.grounded = false;
         }
       }
 
-      document.addEventListener("keydown", (e) => {
+      window.addEventListener("keydown", (e) => {
         if (e.code === "Space") {
           e.preventDefault();
           jump();
         }
       });
+
       canvas.addEventListener("click", jump);
 
       function resetGame() {
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+        }
         player.y = 150;
         player.dy = 0;
         obstacles = [];
@@ -1117,9 +1126,11 @@
       function loop() {
         if (gameOver) {
           ctx.fillStyle = "#ffffff";
-          ctx.font = "20px Syne";
+          ctx.font = "20px Syne, sans-serif";
           ctx.textAlign = "center";
-          ctx.fillText("Game Over! Score: " + score, canvas.width / 2, 100);
+          ctx.fillText("Game Over! Score: " + score, canvas.width / 2, 90);
+          ctx.font = "12px Fira Code, monospace";
+          ctx.fillText("Press SPACE or Click to Restart", canvas.width / 2, 120);
           ctx.textAlign = "start";
           return;
         }
@@ -1181,10 +1192,12 @@
         ctx.fillText("Score: " + score, 10, 25);
         ctx.fillText("Speed: " + currentSpeed.toFixed(1) + "x", 300, 25);
 
-        requestAnimationFrame(loop);
+        animationFrameId = requestAnimationFrame(loop);
       }
 
-      loop();
+      window.addEventListener("DOMContentLoaded", () => {
+        resetGame();
+      });
     </script>
   </body>
 </html>
