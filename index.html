@@ -1,719 +1,646 @@
 ```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Jarrelle Moten | Hi, I Make Websites</title>
+    <title>Jarrelle Moten | Hi, I Make Websites</title>
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f0f0f;
+            --card: #1a1a1a;
+            --text: #ffffff;
+            --muted: #aaaaaa;
+            --accent: #dc2626;
+        }
 
-  <style>
-    :root {
-      --bg-color: #0d0d0d;
-      --card-bg: #171717;
-      --border-color: #262626;
-      --text-main: #f3f4f6;
-      --text-muted: #d1d5db;
-      --accent: #dc2626;
-      --accent-hover: #b91c1c;
-      --accent-light: #ef4444;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+        body {
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
 
-    html {
-      scroll-behavior: smooth;
-    }
+        /* NAVIGATION */
 
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      font-family: "Plus Jakarta Sans", sans-serif;
-      line-height: 1.6;
-    }
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #111111;
+            padding: 15px;
+            text-align: center;
+            z-index: 1000;
+            border-bottom: 1px solid #333;
+        }
 
-    code,
-    pre,
-    .code-font {
-      font-family: "Fira Code", monospace;
-    }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 12px;
+            font-size: 14px;
+        }
 
-    h1,
-    h2,
-    h3,
-    .section-title,
-    .hero-heading,
-    .hero-subheading,
-    .pricing-tag,
-    .brief-summary-title {
-      font-family: "Syne", sans-serif;
-    }
+        nav a:hover {
+            color: var(--accent);
+        }
 
-    /* Navigation */
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-color);
-      z-index: 1000;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+        /* GENERAL */
 
-    nav ul {
-      display: flex;
-      list-style: none;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
+        section {
+            padding: 90px 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
 
-    nav a {
-      color: var(--text-main);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: color 0.2s;
-    }
+        h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
 
-    nav a:hover {
-      color: var(--accent-light);
-    }
+        h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
 
-    /* Sections */
-    section {
-      min-height: 100vh;
-      padding: 6rem 2rem 4rem;
-      max-width: 1000px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
+        h3 {
+            margin-bottom: 10px;
+        }
 
-    .section-title {
-      font-size: 2rem;
-      font-weight: 900;
-      margin-bottom: 2rem;
-      border-bottom: 2px dashed var(--border-color);
-      padding-bottom: 0.5rem;
-      text-transform: uppercase;
-      color: var(--text-main);
-    }
+        p {
+            color: var(--muted);
+        }
 
-    /* Test Banner */
-    .test-notice-banner {
-      background: rgba(220, 38, 38, 0.2);
-      border: 2px solid var(--accent);
-      color: #ffffff;
-      padding: 0.8rem 1.5rem;
-      border-radius: 8px;
-      text-align: center;
-      font-weight: 800;
-      margin-bottom: 2rem;
-      letter-spacing: 1px;
-      font-size: 0.9rem;
-    }
+        button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+        }
 
-    /* Hero */
-    .hero-profile-container {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-    }
+        button:hover {
+            opacity: 0.85;
+        }
 
-    .profile-pic {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--accent);
-      box-shadow: 0 0 20px rgba(220, 38, 38, 0.3);
-    }
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            background: #222;
+            color: white;
+            border: 1px solid #444;
+            border-radius: 6px;
+        }
 
-    .hero-heading {
-      font-size: 3rem;
-      font-weight: 900;
-      line-height: 1.1;
-    }
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
 
-    .hero-subheading {
-      font-size: 1.5rem;
-      color: var(--accent-light);
-      margin-top: 0.5rem;
-    }
+        /* HOME */
 
-    .pricing-badge {
-      display: inline-block;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      padding: 1rem 1.5rem;
-      border-radius: 8px;
-      margin: 1.5rem 0;
-    }
+        #home {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
 
-    .pricing-tag {
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: var(--accent-light);
-    }
+        .hero {
+            max-width: 700px;
+        }
 
-    .payment-note {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-top: 0.25rem;
-    }
+        .profile-pic {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 20px rgba(220, 38, 38, 0.3);
+            margin-bottom: 20px;
+        }
 
-    /* Portfolio */
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-    }
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
 
-    .project-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 1.5rem;
-      transition: transform 0.2s, border-color 0.2s;
-    }
+        .price {
+            font-size: 28px;
+            color: var(--accent);
+            font-weight: bold;
+            margin: 20px 0;
+        }
 
-    .project-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--accent);
-    }
+        /* CARDS */
 
-    .project-card h3 {
-      font-size: 1.25rem;
-      margin-bottom: 0.5rem;
-    }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
 
-    .project-card p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-    }
+        .project-card {
+            background: var(--card);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #333;
+        }
 
-    /* Buttons */
-    .btn {
-      display: inline-block;
-      background: var(--accent);
-      color: #fff;
-      padding: 0.6rem 1.2rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.85rem;
-      border: none;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
+        /* FORMS */
 
-    .btn:hover {
-      background: var(--accent-hover);
-    }
+        .form-container {
+            background: var(--card);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #333;
+        }
 
-    /* Forms */
-    .form-group {
-      margin-bottom: 1.25rem;
-    }
+        /* FAQ */
 
-    .form-group label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
+        details {
+            background: var(--card);
+            padding: 18px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
 
-    .form-control {
-      width: 100%;
-      padding: 0.8rem 1rem;
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      color: var(--text-main);
-      font-family: inherit;
-    }
+        summary {
+            cursor: pointer;
+            font-weight: bold;
+        }
 
-    .form-control:focus {
-      outline: none;
-      border-color: var(--accent);
-    }
+        /* GAME */
 
-    textarea.form-control {
-      resize: vertical;
-      min-height: 120px;
-    }
+        #game-area {
+            width: 100%;
+            max-width: 600px;
+            height: 250px;
+            background: #222;
+            border: 2px solid #444;
+            margin: 20px auto;
+            position: relative;
+            overflow: hidden;
+        }
 
-    /* Project Brief */
-    .brief-summary {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      padding: 1.5rem;
-      border-radius: 8px;
-      margin-top: 1.5rem;
-    }
+        #player {
+            width: 30px;
+            height: 30px;
+            background: var(--accent);
+            position: absolute;
+            bottom: 0;
+            left: 50px;
+        }
 
-    .brief-summary-title {
-      font-size: 1rem;
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-      color: var(--accent-light);
-    }
+        /* FOOTER */
 
-    /* FAQ */
-    details {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      margin-bottom: 1rem;
-      padding: 1rem 1.25rem;
-    }
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid #333;
+            color: var(--muted);
+        }
 
-    summary {
-      font-weight: 700;
-      cursor: pointer;
-      list-style: none;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+        /* MOBILE */
 
-    details p {
-      margin-top: 0.75rem;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
+        @media (max-width: 700px) {
 
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 2rem;
-      border-top: 1px solid var(--border-color);
-      color: var(--text-muted);
-      font-size: 0.85rem;
-    }
+            h1 {
+                font-size: 36px;
+            }
 
-    /* Mobile */
-    @media (max-width: 600px) {
-      nav {
-        padding: 0.8rem 1rem;
-      }
+            h2 {
+                font-size: 28px;
+            }
 
-      nav ul {
-        gap: 0.8rem;
-      }
+            .cards {
+                grid-template-columns: 1fr;
+            }
 
-      nav a {
-        font-size: 0.7rem;
-      }
-
-      section {
-        padding-left: 1rem;
-        padding-right: 1rem;
-      }
-
-      .hero-heading {
-        font-size: 2.2rem;
-      }
-
-      .hero-subheading {
-        font-size: 1.2rem;
-      }
-
-      .profile-pic {
-        width: 110px;
-        height: 110px;
-      }
-    }
-  </style>
+            nav a {
+                margin: 0 5px;
+                font-size: 11px;
+            }
+        }
+    </style>
 </head>
+
 
 <body>
 
-  <!-- Navigation -->
-  <nav>
-    <ul>
-      <li><a href="#home">HOME</a></li>
-      <li><a href="#work">WORK</a></li>
-      <li><a href="#questionnaire">QUESTIONNAIRE</a></li>
-      <li><a href="#contact">CONTACT</a></li>
-      <li><a href="#faq">FAQ</a></li>
-      <li><a href="#reviews">REVIEWS</a></li>
-      <li><a href="#game">GAME</a></li>
-    </ul>
-  </nav>
-
-  <!-- Home -->
-  <section id="home">
-
-    <div class="test-notice-banner">
-      ⚠️ DO NOT PAY - JUST A TEST ⚠️
-    </div>
-
-    <div class="hero-profile-container">
-
-      <!-- Profile Picture -->
-      <img
-        src="./profile.jpg"
-        alt="Jarrelle Moten Profile Picture"
-        class="profile-pic"
-      >
-
-      <div>
-        <h1 class="hero-heading">Jarrelle Moten</h1>
-        <div class="hero-subheading">Hi, I Make Websites.</div>
-      </div>
-
-    </div>
-
-    <p style="font-size: 1.1rem; color: var(--text-muted);">
-      I will build your custom personal or business website from scratch.
-    </p>
-
-    <div class="pricing-badge">
-      <div class="pricing-tag">$20 Flat Rate</div>
-      <div class="payment-note">CashApp: $JarrelleMoten</div>
-    </div>
-
-  </section>
-
-  <!-- Work -->
-  <section id="work">
-
-    <h2 class="section-title">MY OTHER WORK</h2>
-
-    <div class="portfolio-grid">
-
-      <div class="project-card">
-        <h3>Project Alpha</h3>
-        <p>Click below to visit the project.</p>
-        <a href="#" class="btn">Visit Site</a>
-      </div>
-
-      <div class="project-card">
-        <h3>Project Beta</h3>
-        <p>Click below to visit the project.</p>
-        <a href="#" class="btn">Visit Site</a>
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- Questionnaire -->
-  <section id="questionnaire">
-
-    <h2 class="section-title">WEBSITE QUESTIONNAIRE</h2>
-
-    <p style="margin-bottom: 1.5rem; color: var(--text-muted);">
-      Fill out your site details below to generate your compiled project brief.
-    </p>
-
-    <div class="form-group">
-      <label for="website-goal">
-        1. What is the main goal of your website?
-      </label>
-
-      <input
-        id="website-goal"
-        type="text"
-        class="form-control"
-        placeholder="e.g., Sell products, portfolio, blog..."
-      >
-    </div>
-
-    <div class="form-group">
-      <label for="page-count">
-        2. How many pages do you need?
-      </label>
-
-      <select id="page-count" class="form-control">
-        <option>Single Page</option>
-        <option>2 - 5 Pages</option>
-        <option>5+ Pages</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="visual-style">
-        3. What visual style do you prefer?
-      </label>
-
-      <input
-        id="visual-style"
-        type="text"
-        class="form-control"
-        placeholder="e.g., Minimal, Black & Red, Retro..."
-      >
-    </div>
-
-    <div class="form-group">
-      <label for="features">
-        4. Any specific features needed?
-      </label>
-
-      <input
-        id="features"
-        type="text"
-        class="form-control"
-        placeholder="e.g., Contact form, photo gallery, online shop..."
-      >
-    </div>
-
-    <div class="brief-summary">
-
-      <div class="brief-summary-title">
-        COMPILED PROJECT BRIEF
-      </div>
-
-      <div
-        id="project-brief"
-        class="code-font"
-        style="font-size: 0.85rem; color: var(--text-muted);"
-      >
-        1. Main Goal: Not specified yet<br>
-        2. Pages Needed: Single Page<br>
-        3. Visual Style: Not specified yet<br>
-        4. Features Needed: None specified yet
-      </div>
-
-    </div>
-
-  </section>
-
-  <!-- Contact -->
-  <section id="contact">
-
-    <h2 class="section-title">CONTACT ME</h2>
-
-    <p style="margin-bottom: 1.5rem; color: var(--text-muted);">
-      Send your project details directly to my email.
-    </p>
-
-    <div class="form-group">
-
-      <label for="contact-name">
-        Your Name *
-      </label>
-
-      <input
-        id="contact-name"
-        type="text"
-        class="form-control"
-        placeholder="John Doe"
-      >
-
-    </div>
-
-    <div class="form-group">
+    <!-- NAVIGATION -->
 
-      <label for="contact-email">
-        Your Email *
-      </label>
+    <nav>
+        <a href="#home">HOME</a>
+        <a href="#work">WORK</a>
+        <a href="#questionnaire">QUESTIONNAIRE</a>
+        <a href="#contact">CONTACT</a>
+        <a href="#faq">FAQ</a>
+        <a href="#reviews">REVIEWS</a>
+        <a href="#game">GAME</a>
+    </nav>
 
-      <input
-        id="contact-email"
-        type="email"
-        class="form-control"
-        placeholder="john@example.com"
-      >
 
-    </div>
+    <!-- HOME -->
 
-    <div class="form-group">
+    <section id="home">
 
-      <label for="contact-message">
-        Copy and paste questionnaire here (and add more details if needed) *
-      </label>
+        <div class="hero">
 
-      <textarea
-        id="contact-message"
-        class="form-control"
-        placeholder="Paste your compiled project brief above or enter additional details..."
-      ></textarea>
-
-    </div>
+            <img
+                src="./profile.jpg"
+                alt="Jarrelle Moten Profile Picture"
+                class="profile-pic"
+            >
 
-    <button type="button" class="btn" id="send-email">
-      Send Email
-    </button>
+            <h1>Hi, I'm Jarrelle.</h1>
 
-  </section>
+            <p>
+                I make simple, clean websites for people and small businesses.
+            </p>
 
-  <!-- FAQ -->
-  <section id="faq">
+            <div class="price">
+                $20 Flat Rate
+            </div>
 
-    <h2 class="section-title">
-      FREQUENTLY ASKED QUESTIONS
-    </h2>
+            <p>
+                Pay with CashApp
+            </p>
 
-    <p style="margin-bottom: 1.5rem; color: var(--text-muted);">
-      Common questions about ordering a website.
-    </p>
+        </div>
 
-    <details>
-      <summary>
-        1. How long does it take to complete my website?
-      </summary>
+    </section>
 
-      <p>
-        Most single-page and small websites are completed within 2 to 5 business days.
-      </p>
-    </details>
 
-    <details>
-      <summary>
-        2. How do I pay the $20 fee?
-      </summary>
+    <!-- WORK -->
 
-      <p>
-        Payments are accepted via CashApp ($JarrelleMoten) upon agreeing to start the project.
-      </p>
-    </details>
+    <section id="work">
 
-    <details>
-      <summary>
-        3. Can I request edits after the site is finished?
-      </summary>
+        <h2>My Work</h2>
 
-      <p>
-        Yes, minor adjustments and text changes are included after delivery.
-      </p>
-    </details>
+        <div class="cards">
 
-    <div style="margin-top: 2rem;">
+            <div class="project-card">
 
-      <h3 style="margin-bottom: 1rem;">
-        Have a new question?
-      </h3>
+                <h3>Project Alpha</h3>
 
-      <div class="form-group">
+                <p>
+                    A simple website designed to showcase a business,
+                    service, or personal brand.
+                </p>
 
-        <input
-          id="new-question"
-          type="text"
-          class="form-control"
-          placeholder="Type your question here..."
-        >
+            </div>
 
-      </div>
 
-      <button type="button" class="btn" id="submit-question">
-        Submit Question
-      </button>
+            <div class="project-card">
 
-    </div>
+                <h3>Project Beta</h3>
 
-  </section>
+                <p>
+                    A clean and simple website focused on helping
+                    customers find information quickly.
+                </p>
 
-  <!-- Reviews -->
-  <section id="reviews">
+            </div>
 
-    <h2 class="section-title">
-      CLIENT REVIEWS & COMMENTS
-    </h2>
+        </div>
 
-    <p style="margin-bottom: 1.5rem; color: var(--text-muted);">
-      Leave feedback or read what past clients have to say.
-    </p>
+    </section>
 
-    <div class="form-group">
 
-      <label for="review-name">
-        Your Name *
-      </label>
+    <!-- QUESTIONNAIRE -->
 
-      <input
-        id="review-name"
-        type="text"
-        class="form-control"
-        placeholder="Alex Smith"
-      >
+    <section id="questionnaire">
 
-    </div>
+        <h2>Website Questionnaire</h2>
 
-    <div class="form-group">
+        <p>
+            Tell me what you want your website to look like.
+        </p>
 
-      <label for="review-rating">
-        Rating *
-      </label>
+        <br>
 
-      <select id="review-rating" class="form-control">
-        <option>★★★★★ (5 Stars)</option>
-        <option>★★★★☆ (4 Stars)</option>
-        <option>★★★☆☆ (3 Stars)</option>
-      </select>
+        <div class="form-container">
 
-    </div>
+            <label>What is the goal of your website?</label>
 
-    <div class="form-group">
+            <select id="website-goal">
 
-      <label for="review-text">
-        Your Review / Comment *
-      </label>
+                <option value="">
+                    Choose one
+                </option>
 
-      <textarea
-        id="review-text"
-        class="form-control"
-        placeholder="Write your review or comment here..."
-      ></textarea>
+                <option value="Business">
+                    Business
+                </option>
 
-    </div>
+                <option value="Personal">
+                    Personal
+                </option>
 
-    <button type="button" class="btn" id="post-review">
-      Post Review
-    </button>
+                <option value="Portfolio">
+                    Portfolio
+                </option>
 
-  </section>
+                <option value="Other">
+                    Other
+                </option>
 
-  <!-- Game -->
-  <section id="game">
+            </select>
 
-    <h2 class="section-title">
-      JUST FOR FUN: SQUARE JUMP
-    </h2>
 
-    <p style="margin-bottom: 1.5rem; color: var(--text-muted);">
-      Press SPACEBAR or CLICK to Jump
-    </p>
+            <label>How many pages do you need?</label>
 
-    <div>
-      <button type="button" class="btn" id="restart-game">
-        Restart
-      </button>
-    </div>
+            <select id="page-count">
 
-  </section>
+                <option value="">
+                    Choose one
+                </option>
 
-  <!-- Footer -->
-  <footer>
-    &copy; 2026 Jarrelle Moten. All rights reserved.
-  </footer>
+                <option value="1">
+                    1 Page
+                </option>
 
-  <!-- JavaScript -->
-  <script src="./script.js"></script>
+                <option value="2-3">
+                    2-3 Pages
+                </option>
+
+                <option value="4+">
+                    4+ Pages
+                </option>
+
+            </select>
+
+
+            <label>What visual style do you want?</label>
+
+            <select id="visual-style">
+
+                <option value="">
+                    Choose one
+                </option>
+
+                <option value="Modern">
+                    Modern
+                </option>
+
+                <option value="Simple">
+                    Simple
+                </option>
+
+                <option value="Professional">
+                    Professional
+                </option>
+
+                <option value="Colorful">
+                    Colorful
+                </option>
+
+            </select>
+
+
+            <label>What features do you want?</label>
+
+            <textarea
+                id="features"
+                placeholder="Example: Contact form, pictures, social media links..."
+            ></textarea>
+
+
+            <label>Project Brief</label>
+
+            <textarea
+                id="project-brief"
+                placeholder="Your website information will appear here..."
+                readonly
+            ></textarea>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONTACT -->
+
+    <section id="contact">
+
+        <h2>Contact Me</h2>
+
+        <p>
+            Interested in a website? Send me a message.
+        </p>
+
+        <br>
+
+        <div class="form-container">
+
+            <input
+                type="text"
+                id="contact-name"
+                placeholder="Your Name"
+            >
+
+            <input
+                type="email"
+                id="contact-email"
+                placeholder="Your Email"
+            >
+
+            <textarea
+                id="contact-message"
+                placeholder="Tell me what you need..."
+            ></textarea>
+
+            <button id="send-email">
+                Send Email
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- FAQ -->
+
+    <section id="faq">
+
+        <h2>FAQ</h2>
+
+        <details>
+
+            <summary>
+                How much does a website cost?
+            </summary>
+
+            <p>
+                My basic website service is $20.
+            </p>
+
+        </details>
+
+
+        <details>
+
+            <summary>
+                How long does it take?
+            </summary>
+
+            <p>
+                Simple websites can usually be completed quickly,
+                depending on what you need.
+            </p>
+
+        </details>
+
+
+        <details>
+
+            <summary>
+                Can I request changes?
+            </summary>
+
+            <p>
+                Yes. We can discuss changes to the website.
+            </p>
+
+        </details>
+
+
+        <div class="form-container">
+
+            <h3>Have another question?</h3>
+
+            <input
+                type="text"
+                id="new-question"
+                placeholder="Ask your question..."
+            >
+
+            <button id="submit-question">
+                Submit Question
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- REVIEWS -->
+
+    <section id="reviews">
+
+        <h2>Reviews</h2>
+
+        <p>
+            Leave a review about your experience.
+        </p>
+
+        <br>
+
+        <div class="form-container">
+
+            <input
+                type="text"
+                id="review-name"
+                placeholder="Your Name"
+            >
+
+
+            <select id="review-rating">
+
+                <option value="5">
+                    5 Stars
+                </option>
+
+                <option value="4">
+                    4 Stars
+                </option>
+
+                <option value="3">
+                    3 Stars
+                </option>
+
+                <option value="2">
+                    2 Stars
+                </option>
+
+                <option value="1">
+                    1 Star
+                </option>
+
+            </select>
+
+
+            <textarea
+                id="review-text"
+                placeholder="Write your review..."
+            ></textarea>
+
+
+            <button id="post-review">
+                Post Review
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- GAME -->
+
+    <section id="game">
+
+        <h2>Square Jump</h2>
+
+        <p>
+            Press SPACE or click the square to jump.
+        </p>
+
+        <div id="game-area">
+
+            <div id="player"></div>
+
+        </div>
+
+        <button id="restart-game">
+            Restart Game
+        </button>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            © 2026 Jarrelle Moten. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="./script.js"></script>
 
 </body>
+
 </html>
 ```
