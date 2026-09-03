@@ -1,987 +1,576 @@
-```html
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jarrelle Moten | Hi, I Make Websites</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-
-    <style>
-      :root {
-        --bg-color: #000000; /* Pure Black Background */
-        --card-bg: #120a0a; /* Dark Red Tint Card Background */
-        --border-color: #3b1111; /* Deep Red Border */
-        --text-main: #ffffff; /* Crisp Pure White Text */
-        --text-muted: #d1d5db; /* Bright Neutral Gray for Subtext */
-        --accent: #dc2626; /* Vibrant Red Accent */
-        --accent-hover: #b91c1c;
-        --accent-light: #ef4444;
-      }
-
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      body {
-        background-color: var(--bg-color);
-        color: var(--text-main);
-        font-family: "Plus Jakarta Sans", sans-serif;
-        line-height: 1.6;
-        scroll-behavior: smooth;
-      }
-
-      code,
-      pre,
-      .code-font {
-        font-family: "Fira Code", monospace;
-      }
-
-      h1,
-      h2,
-      h3,
-      .section-title,
-      .hero-heading,
-      .hero-subheading,
-      .pricing-tag,
-      .brief-summary-title {
-        font-family: "Syne", sans-serif;
-      }
-
-      /* Navigation */
-      nav {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.95);
-        backdrop-filter: blur(12px);
-        border-bottom: 1px solid var(--border-color);
-        z-index: 1000;
-        padding: 1rem 2rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      nav ul {
-        display: flex;
-        list-style: none;
-        gap: 1.5rem;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      nav a {
-        color: var(--text-main);
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        transition: color 0.2s;
-      }
-
-      nav a:hover {
-        color: var(--accent-light);
-      }
-
-      /* Layout Sections */
-      section {
-        min-height: 100vh;
-        padding: 6rem 2rem 4rem;
-        max-width: 1000px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-
-      .section-title {
-        font-size: 2rem;
-        font-weight: 900;
-        margin-bottom: 2rem;
-        border-bottom: 2px dashed var(--border-color);
-        padding-bottom: 0.5rem;
-        text-transform: uppercase;
-        color: var(--text-main);
-      }
-
-      /* Test Warning Banner */
-      .test-notice-banner {
-        background: rgba(220, 38, 38, 0.2);
-        border: 2px solid var(--accent);
-        color: #ffffff;
-        padding: 0.8rem 1.5rem;
-        border-radius: 6px;
-        font-weight: 900;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        margin-bottom: 2rem;
-        box-shadow: 0 0 15px rgba(220, 38, 38, 0.3);
-        font-family: "Fira Code", monospace;
-      }
-
-      /* Hero Section */
-      #hero {
-        align-items: center;
-        text-align: center;
-      }
-
-      .hero-profile-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 2rem;
-        margin-bottom: 2rem;
-        flex-wrap: wrap;
-      }
-
-      .avatar-container {
-        position: relative;
-        width: 180px;
-        height: 180px;
-        border-radius: 50%;
-        border: 3px solid var(--accent);
-        overflow: hidden;
-        background: var(--card-bg);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 0 25px rgba(220, 38, 38, 0.4);
-        flex-shrink: 0;
-      }
-
-      .avatar-container img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      .avatar-stack {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.7rem;
-      }
-
-      .owner-controls {
-        align-items: center;
-        gap: 0.55rem;
-        padding: 0.55rem;
-        border: 1px solid var(--border-color);
-        background: var(--card-bg);
-        border-radius: 4px;
-      }
-
-      .owner-controls[hidden] {
-        display: none;
-      }
-
-      .owner-controls-label {
-        color: var(--text-muted);
-        font-family: "Fira Code", monospace;
-        font-size: 0.65rem;
-        letter-spacing: 0.4px;
-        text-transform: uppercase;
-      }
-
-      .avatar-upload,
-      .avatar-remove {
-        border: 1px solid var(--border-color);
-        background: transparent;
-        color: var(--text-muted);
-        padding: 0.35rem 0.55rem;
-        border-radius: 4px;
-        font-family: "Fira Code", monospace;
-        font-size: 0.65rem;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        cursor: pointer;
-        transition:
-          color 0.2s,
-          border-color 0.2s,
-          background 0.2s;
-      }
-
-      .avatar-upload:hover,
-      .avatar-remove:hover {
-        color: var(--text-main);
-        border-color: var(--accent);
-        background: rgba(220, 38, 38, 0.18);
-      }
-
-      .avatar-upload input {
-        display: none;
-      }
-
-      .pricing-cashapp-card {
-        background: var(--card-bg);
-        border: 1px solid var(--border-color);
-        border-left: 4px solid var(--accent);
-        padding: 1.2rem;
-        border-radius: 8px;
-        text-align: left;
-        max-width: 280px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-      }
-
-      .pricing-tag {
-        font-size: 1.6rem;
-        font-weight: 900;
-        color: #ffffff;
-        margin-bottom: 0.2rem;
-      }
-
-      .pricing-tag span {
-        color: var(--accent-light);
-      }
-
-      .pricing-desc {
-        font-size: 0.85rem;
-        color: var(--text-muted);
-        margin-bottom: 0.8rem;
-      }
-
-      .cashapp-info {
-        font-family: "Fira Code", monospace;
-        font-size: 0.85rem;
-        background: #000;
-        padding: 0.5rem;
-        border-radius: 4px;
-        border: 1px solid var(--border-color);
-        color: #22c55e;
-        font-weight: 600;
-      }
-
-      .hero-heading {
-        font-size: 2.5rem;
-        font-weight: 900;
-        margin-bottom: 0.5rem;
-        color: var(--text-main);
-      }
-
-      .hero-subheading {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--accent-light);
-      }
-
-      /* Button Styling */
-      .btn {
-        display: inline-block;
-        background: var(--accent);
-        color: #ffffff;
-        padding: 0.8rem 1.8rem;
-        font-weight: 700;
-        text-decoration: none;
-        border-radius: 6px;
-        border: 2px solid var(--accent);
-        cursor: pointer;
-        font-family: "Plus Jakarta Sans", sans-serif;
-        transition: all 0.2s;
-        box-shadow: 0 4px 14px rgba(220, 38, 38, 0.4);
-      }
-
-      .btn:hover {
-        background: var(--accent-hover);
-        border-color: var(--accent-hover);
-      }
-
-      .btn-secondary {
-        background: transparent;
-        color: #ffffff;
-        border-color: var(--border-color);
-        box-shadow: none;
-      }
-
-      .btn-secondary:hover {
-        border-color: var(--accent);
-        color: var(--accent-light);
-      }
-
-      /* Portfolio Section */
-      .portfolio-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.5rem;
-      }
-
-      .portfolio-card {
-        background: var(--card-bg);
-        border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 1.5rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-      }
-
-      .portfolio-card h3 {
-        color: #ffffff;
-      }
-
-      .portfolio-card img {
-        width: 100%;
-        height: 160px;
-        object-fit: cover;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: transform 0.3s;
-      }
-
-      .portfolio-card img:hover {
-        transform: scale(1.02);
-      }
-
-      .card-actions {
-        display: flex;
-        gap: 0.5rem;
-        margin-top: auto;
-      }
-
-      /* Form & Dynamic Brief Box Styling */
-      .form-group {
-        margin-bottom: 1.2rem;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-
-      label {
-        font-weight: 700;
-        font-size: 0.9rem;
-        color: #ffffff;
-      }
-
-      input,
-      textarea,
-      select {
-        background: var(--card-bg);
-        border: 1px solid var(--border-color);
-        color: #ffffff;
-        padding: 0.8rem;
-        border-radius: 4px;
-        font-family: "Plus Jakarta Sans", sans-serif;
-      }
-
-      input:focus,
-      textarea:focus,
-      select:focus {
-        outline: 1px solid var(--accent);
-      }
-
-      .brief-summary-box {
-        background: var(--card-bg);
-        border: 1px solid var(--border-color);
-        border-left: 4px solid var(--accent);
-        border-radius: 6px;
-        padding: 1.25rem;
-        margin-top: 1.5rem;
-        box-shadow: 0 0 20px rgba(220, 38, 38, 0.15);
-      }
-
-      .brief-summary-title {
-        font-size: 1rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: var(--accent-light);
-        margin-bottom: 0.75rem;
-      }
-
-      .brief-summary-content {
-        font-family: "Fira Code", monospace;
-        font-size: 0.9rem;
-        color: var(--text-muted);
-        white-space: pre-wrap;
-        line-height: 1.6;
-      }
-
-      /* FAQ Section Accordion */
-      .faq-item {
-        background: var(--card-bg);
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        margin-bottom: 1rem;
-        overflow: hidden;
-      }
-
-      .faq-question {
-        width: 100%;
-        text-align: left;
-        background: transparent;
-        border: none;
-        padding: 1rem 1.2rem;
-        color: #ffffff;
-        font-size: 1rem;
-        font-weight: 700;
-        font-family: "Plus Jakarta Sans", sans-serif;
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .faq-answer {
-        display: none;
-        padding: 0 1.2rem 1rem;
-        color: var(--text-muted);
-        font-size: 0.9rem;
-        border-top: 1px solid rgba(59, 17, 17, 0.5);
-        padding-top: 0.8rem;
-      }
-
-      .faq-answer.show {
-        display: block;
-      }
-
-      /* Reviews Section */
-      .reviews-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        margin-top: 2rem;
-      }
-
-      .review-card {
-        background: var(--card-bg);
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        padding: 1.2rem;
-      }
-
-      .review-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 0.5rem;
-      }
-
-      .review-name {
-        font-weight: 700;
-        color: var(--accent-light);
-      }
-
-      .review-stars {
-        color: #f59e0b;
-      }
-
-      .review-date {
-        font-size: 0.75rem;
-        color: var(--text-muted);
-      }
-
-      /* Modal / Lightbox */
-      .modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.95);
-        z-index: 2000;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .modal img {
-        max-width: 90%;
-        max-height: 80%;
-        border: 2px solid var(--accent);
-        border-radius: 8px;
-      }
-
-      /* Game Container */
-      #game-canvas {
-        background: #000000;
-        border: 2px solid var(--border-color);
-        display: block;
-        margin: 0 auto;
-        max-width: 100%;
-        border-radius: 6px;
-      }
-
-      .game-controls {
-        text-align: center;
-        margin-top: 1rem;
-        color: var(--text-muted);
-      }
-
-      footer {
-        text-align: center;
-        padding: 2rem;
-        border-top: 1px solid var(--border-color);
-        color: var(--text-muted);
-        font-size: 0.8rem;
-      }
-    </style>
-  </head>
-
-  <body>
-    <!-- Navigation -->
-    <nav>
-      <ul>
-        <li><a href="#hero">Home</a></li>
-        <li><a href="#work">Work</a></li>
-        <li><a href="#questionnaire">Questionnaire</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="#reviews">Reviews</a></li>
-        <li><a href="#game">Game</a></li>
-      </ul>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="hero">
-      <!-- Test Banner -->
-      <div class="test-notice-banner">⚠️ DO NOT PAY - JUST A TEST ⚠️</div>
-
-      <div class="hero-profile-wrapper">
-        <div class="avatar-stack">
-          <div class="avatar-container">
-            <img
-              id="profile-image"
-              src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'><rect width='100%' height='100%' fill='%23120a0a'/></svg>"
-              alt="Jarrelle Moten Profile Picture"
-            />
-          </div>
-
-          <div
-            id="owner-controls"
-            class="owner-controls"
-            hidden
-            aria-hidden="true"
-          >
-            <span class="owner-controls-label">Owner mode</span>
-
-            <label class="avatar-upload">
-              Change photo
-              <input id="profile-upload" type="file" accept="image/*" />
-            </label>
-
-            <button
-              id="remove-profile-photo"
-              class="avatar-remove"
-              type="button"
-              hidden
-            >
-              Remove
-            </button>
-          </div>
-        </div>
-
-        <!-- Pricing & CashApp Card -->
-        <div class="pricing-cashapp-card">
-          <div class="pricing-tag">$20 <span>Flat Rate</span></div>
-
-          <p class="pricing-desc">
-            I will build your custom personal or business website from scratch.
-          </p>
-
-          <div class="cashapp-info">CashApp: $JarrelleMoten</div>
-        </div>
-      </div>
-
-      <h1 class="hero-heading">Jarrelle Moten</h1>
-      <p class="hero-subheading">Hi, I Make Websites.</p>
-    </section>
-
-    <!-- Portfolio Section -->
-    <section id="work">
-      <h2 class="section-title">My Other Work</h2>
-
-      <div class="portfolio-grid">
-        <div class="portfolio-card">
-          <img
-            src="https://via.placeholder.com/600x400/120a0a/dc2626?text=Project+1"
-            alt="Project 1"
-            onclick="openModal(this.src)"
-          />
-
-          <h3>Project Alpha</h3>
-
-          <p style="color: var(--text-muted); font-size: 0.9rem">
-            Click image to enlarge preview.
-          </p>
-
-          <div class="card-actions">
-            <a
-              href="https://example.com"
-              target="_blank"
-              class="btn btn-secondary"
-              style="width: 100%; text-align: center"
-            >
-              Visit Site
-            </a>
-          </div>
-        </div>
-
-        <div class="portfolio-card">
-          <img
-            src="https://via.placeholder.com/600x400/120a0a/dc2626?text=Project+2"
-            alt="Project 2"
-            onclick="openModal(this.src)"
-          />
-
-          <h3>Project Beta</h3>
-
-          <p style="color: var(--text-muted); font-size: 0.9rem">
-            Click image to enlarge preview.
-          </p>
-
-          <div class="card-actions">
-            <a
-              href="https://example.com"
-              target="_blank"
-              class="btn btn-secondary"
-              style="width: 100%; text-align: center"
-            >
-              Visit Site
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Website Questionnaire Section -->
-    <section id="questionnaire">
-      <h2 class="section-title">Website Questionnaire</h2>
-
-      <p style="margin-bottom: 1.5rem; color: var(--text-muted)">
-        Fill out your site details below to generate your compiled project
-        brief.
-      </p>
-
-      <form id="site-questionnaire">
-        <div class="form-group">
-          <label for="q-goal">
-            1. What is the main goal of your website?
-          </label>
-
-          <input
-            type="text"
-            id="q-goal"
-            placeholder="e.g., Sell products, portfolio, blog..."
-            oninput="updateBriefBox()"
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="q-pages">
-            2. How many pages do you need?
-          </label>
-
-          <select id="q-pages" onchange="updateBriefBox()">
-            <option value="Single Page">Single Page</option>
-            <option value="2 - 5 Pages">2 - 5 Pages</option>
-            <option value="5+ Pages">5+ Pages</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="q-style">
-            3. What visual style do you prefer?
-          </label>
-
-          <input
-            type="text"
-            id="q-style"
-            placeholder="e.g., Minimal, Black & Red, Retro..."
-            oninput="updateBriefBox()"
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="q-features">
-            4. Any specific features needed?
-          </label>
-
-          <textarea
-            id="q-features"
-            rows="3"
-            placeholder="e.g., Contact form, photo gallery, online shop..."
-            oninput="updateBriefBox()"
-          ></textarea>
-        </div>
-
-        <div class="brief-summary-box">
-          <div class="brief-summary-title">
-            Compiled Project Brief
-          </div>
-
-          <div class="brief-summary-content" id="brief-summary-text">
-            1. Main Goal: Not specified yet
-            2. Pages Needed: Single Page
-            3. Visual Style: Not specified yet
-            4. Features Needed: None specified yet
-          </div>
-        </div>
-      </form>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact">
-      <h2 class="section-title">Contact Me</h2>
-
-      <p style="margin-bottom: 1.5rem; color: var(--text-muted)">
-        Send your project details directly to my email.
-      </p>
-
-      <form id="contact-form" onsubmit="handleContactSubmit(event)">
-        <div class="form-group">
-          <label for="contact-name">Your Name</label>
-
-          <input
-            type="text"
-            id="contact-name"
-            required
-            placeholder="John Doe"
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="contact-email">Your Email</label>
-
-          <input
-            type="email"
-            id="contact-email"
-            required
-            placeholder="john@example.com"
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="contact-message">
-            Copy and paste questionnaire here (and add more details if
-            needed)
-          </label>
-
-          <textarea
-            id="contact-message"
-            rows="6"
-            required
-            placeholder="Paste your compiled project brief above or enter additional details..."
-          ></textarea>
-        </div>
-
-        <button type="submit" class="btn">
-          Send Email
-        </button>
-      </form>
-    </section>
-
-    <!-- FAQ Section -->
-    <section id="faq">
-      <h2 class="section-title">
-        Frequently Asked Questions
-      </h2>
-
-      <p style="margin-bottom: 1.5rem; color: var(--text-muted)">
-        Common questions about ordering a website.
-      </p>
-
-      <div id="faq-list">
-        <div class="faq-item">
-          <button
-            class="faq-question"
-            onclick="toggleFaq(this)"
-          >
-            1. How long does it take to complete my website?
-            <span>+</span>
-          </button>
-
-          <div class="faq-answer">
-            Most single-page or simple multi-page websites take between 2 to 5
-            days once the details and brief are finalized.
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button
-            class="faq-question"
-            onclick="toggleFaq(this)"
-          >
-            2. How do I pay the $20 fee?
-            <span>+</span>
-          </button>
-
-          <div class="faq-answer">
-            You can send the payment directly to CashApp:
-            <strong>$JarrelleMoten</strong> after submitting your project
-            details or when we agree on the site design.
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button
-            class="faq-question"
-            onclick="toggleFaq(this)"
-          >
-            3. Can I request edits after the site is finished?
-            <span>+</span>
-          </button>
-
-          <div class="faq-answer">
-            Yes! I offer revisions to make sure you are completely satisfied
-            with the layout and colors.
-          </div>
-        </div>
-      </div>
-
-      <!-- Submit a Question -->
-      <div style="margin-top: 2rem">
-        <h3 style="margin-bottom: 1rem; color: var(--accent-light)">
-          Have a new question?
-        </h3>
-
-        <form id="faq-form" onsubmit="submitFaq(event)">
-          <div class="form-group">
-            <input
-              type="text"
-              id="faq-input"
-              placeholder="Type your question here..."
-              required
-            />
-          </div>
-
-          <button type="submit" class="btn btn-secondary">
-            Submit Question
-          </button>
-        </form>
-      </div>
-    </section>
-
-    <!-- Reviews & Comments Section -->
-    <section id="reviews">
-      <h2 class="section-title">
-        Client Reviews & Comments
-      </h2>
-
-      <p style="margin-bottom: 1.5rem; color: var(--text-muted)">
-        Leave feedback or read what past clients have to say.
-      </p>
-
-      <!-- Review Form -->
-      <form id="review-form" onsubmit="addReview(event)">
-        <div class="form-group">
-          <label for="reviewer-name">Your Name</label>
-
-          <input
-            type="text"
-            id="reviewer-name"
-            required
-            placeholder="Alex Smith"
-          />
-        </div>
-
-        <div class="form-group">
-          <label for="reviewer-rating">Rating</label>
-
-          <select id="reviewer-rating" required>
-            <option value="★★★★★ (5/5)">
-              ★★★★★ (5 Stars)
-            </option>
-
-            <option value="★★★★☆ (4/5)">
-              ★★★★☆ (4 Stars)
-            </option>
-
-            <option value="★★★☆☆ (3/5)">
-              ★★★☆☆ (3 Stars)
-            </option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="reviewer-comment">
-            Your Review / Comment
-          </label>
-
-          <textarea
-            id="reviewer-comment"
-            rows="3"
-            required
-            placeholder="Write your review or comment here..."
-          ></textarea>
-        </div>
-
-        <button type="submit" class="btn">
-          Post Review
-        </button>
-      </form>
-
-      <!-- Display Reviews -->
-      <div
-        class="reviews-list"
-        id="reviews-container"
-      ></div>
-    </section>
-
-    <!-- Mini Game Section -->
-    <section id="game">
-      <h2 class="section-title">
-        Just For Fun: Square Jump
-      </h2>
-
-      <canvas
-        id="game-canvas"
-        width="400"
-        height="200"
-      ></canvas>
-
-      <div class="game-controls">
-        <p class="code-font">
-          Press <strong>SPACEBAR</strong> or
-          <strong>CLICK</strong> to Jump
-        </p>
-
-        <button
-          class="btn btn-secondary"
-          onclick="resetGame()"
-          style="margin-top: 1rem"
-        >
-          Restart
-        </button>
-      </div>
-    </section>
-
-    <!-- Image Pop-up Modal -->
-    <div
-      id="image-modal"
-      class="modal"
-      onclick="closeModal()"
-    >
-      <img
-        id="modal-img"
-        src=""
-        alt="Enlarged Preview"
-      />
-    </div>
-
-    <footer>
-      <p class="code-font">
-        &copy;
-        <span id="year"></span>
-        Jarrelle Moten. All rights reserved.
-      </p>
-    </footer>
-
-    <!-- External JavaScript -->
-    <script src="./script.js"></script>
-  </body>
-</html>
+```javascript
+// ==========================================
+// PROFILE PHOTO / OWNER MODE
+// ==========================================
+
+const profileImage = document.getElementById("profile-image");
+const ownerControls = document.getElementById("owner-controls");
+const profileUpload = document.getElementById("profile-upload");
+const removeProfilePhoto = document.getElementById("remove-profile-photo");
+
+const defaultProfileImage =
+  "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'><rect width='100%' height='100%' fill='%23120a0a'/></svg>";
+
+
+// Load saved profile picture
+const savedProfileImage = localStorage.getItem("profileImage");
+
+if (savedProfileImage) {
+  profileImage.src = savedProfileImage;
+  removeProfilePhoto.hidden = false;
+}
+
+
+// Owner mode with Ctrl + Shift + E
+document.addEventListener("keydown", function (event) {
+  if (
+    event.ctrlKey &&
+    event.shiftKey &&
+    event.key.toLowerCase() === "e"
+  ) {
+    event.preventDefault();
+
+    if (ownerControls.hidden) {
+      ownerControls.hidden = false;
+      ownerControls.setAttribute("aria-hidden", "false");
+      ownerControls.style.display = "flex";
+    } else {
+      ownerControls.hidden = true;
+      ownerControls.setAttribute("aria-hidden", "true");
+    }
+  }
+});
+
+
+// Change profile photo
+profileUpload.addEventListener("change", function () {
+  const file = profileUpload.files[0];
+
+  if (!file) {
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function (event) {
+    const imageData = event.target.result;
+
+    profileImage.src = imageData;
+
+    localStorage.setItem("profileImage", imageData);
+
+    removeProfilePhoto.hidden = false;
+  };
+
+  reader.readAsDataURL(file);
+});
+
+
+// Remove profile photo
+removeProfilePhoto.addEventListener("click", function () {
+  profileImage.src = defaultProfileImage;
+
+  localStorage.removeItem("profileImage");
+
+  removeProfilePhoto.hidden = true;
+
+  profileUpload.value = "";
+});
+
+
+// ==========================================
+// PORTFOLIO IMAGE MODAL
+// ==========================================
+
+function openModal(imageSource) {
+  const modal = document.getElementById("image-modal");
+  const modalImage = document.getElementById("modal-img");
+
+  modalImage.src = imageSource;
+
+  modal.style.display = "flex";
+}
+
+
+function closeModal() {
+  const modal = document.getElementById("image-modal");
+
+  modal.style.display = "none";
+}
+
+
+// Prevent clicking the image itself from closing the modal
+document
+  .getElementById("modal-img")
+  .addEventListener("click", function (event) {
+    event.stopPropagation();
+  });
+
+
+// ==========================================
+// WEBSITE QUESTIONNAIRE
+// ==========================================
+
+function updateBriefBox() {
+  const goal = document.getElementById("q-goal").value;
+  const pages = document.getElementById("q-pages").value;
+  const style = document.getElementById("q-style").value;
+  const features = document.getElementById("q-features").value;
+
+  const goalText = goal.trim()
+    ? goal
+    : "Not specified yet";
+
+  const styleText = style.trim()
+    ? style
+    : "Not specified yet";
+
+  const featuresText = features.trim()
+    ? features
+    : "None specified yet";
+
+  const brief =
+    "1. Main Goal: " +
+    goalText +
+    "\n" +
+    "2. Pages Needed: " +
+    pages +
+    "\n" +
+    "3. Visual Style: " +
+    styleText +
+    "\n" +
+    "4. Features Needed: " +
+    featuresText;
+
+  document.getElementById("brief-summary-text").textContent = brief;
+}
+
+
+// ==========================================
+// CONTACT FORM
+// ==========================================
+
+function handleContactSubmit(event) {
+  event.preventDefault();
+
+  const name = document.getElementById("contact-name").value;
+  const email = document.getElementById("contact-email").value;
+  const message = document.getElementById("contact-message").value;
+
+  const subject = "Website Project Request from " + name;
+
+  const body =
+    "Name: " +
+    name +
+    "\n" +
+    "Email: " +
+    email +
+    "\n\n" +
+    "Project Details:\n" +
+    message;
+
+  const mailto =
+    "mailto:jmoten2@charlotte.edu" +
+    "?subject=" +
+    encodeURIComponent(subject) +
+    "&body=" +
+    encodeURIComponent(body);
+
+  window.location.href = mailto;
+}
+
+
+// ==========================================
+// FAQ
+// ==========================================
+
+function toggleFaq(button) {
+  const answer = button.nextElementSibling;
+  const symbol = button.querySelector("span");
+
+  answer.classList.toggle("show");
+
+  if (answer.classList.contains("show")) {
+    symbol.textContent = "-";
+  } else {
+    symbol.textContent = "+";
+  }
+}
+
+
+// ==========================================
+// SUBMIT A NEW FAQ QUESTION
+// ==========================================
+
+function submitFaq(event) {
+  event.preventDefault();
+
+  const input = document.getElementById("faq-input");
+  const question = input.value.trim();
+
+  if (!question) {
+    return;
+  }
+
+  const faqList = document.getElementById("faq-list");
+
+  const faqItem = document.createElement("div");
+  faqItem.className = "faq-item";
+
+  const questionButton = document.createElement("button");
+  questionButton.className = "faq-question";
+  questionButton.type = "button";
+
+  const questionNumber =
+    faqList.querySelectorAll(".faq-item").length + 1;
+
+  questionButton.innerHTML =
+    questionNumber +
+    ". " +
+    escapeHtml(question) +
+    "<span>+</span>";
+
+  questionButton.onclick = function () {
+    toggleFaq(questionButton);
+  };
+
+  const answer = document.createElement("div");
+  answer.className = "faq-answer";
+  answer.textContent =
+    "Thank you for your question! I will answer this question soon.";
+
+  faqItem.appendChild(questionButton);
+  faqItem.appendChild(answer);
+
+  faqList.appendChild(faqItem);
+
+  input.value = "";
+
+  alert("Your question has been submitted!");
+}
+
+
+// ==========================================
+// REVIEWS
+// ==========================================
+
+function addReview(event) {
+  event.preventDefault();
+
+  const name = document.getElementById("reviewer-name").value.trim();
+  const rating = document.getElementById("reviewer-rating").value;
+  const comment = document
+    .getElementById("reviewer-comment")
+    .value.trim();
+
+  if (!name || !comment) {
+    return;
+  }
+
+  const review = {
+    name: name,
+    rating: rating,
+    comment: comment,
+    date: new Date().toLocaleDateString()
+  };
+
+  const reviews =
+    JSON.parse(localStorage.getItem("reviews")) || [];
+
+  reviews.push(review);
+
+  localStorage.setItem("reviews", JSON.stringify(reviews));
+
+  displayReviews();
+
+  document.getElementById("review-form").reset();
+
+  alert("Your review has been posted!");
+}
+
+
+// Display saved reviews
+function displayReviews() {
+  const container =
+    document.getElementById("reviews-container");
+
+  container.innerHTML = "";
+
+  const reviews =
+    JSON.parse(localStorage.getItem("reviews")) || [];
+
+  reviews.forEach(function (review) {
+    const reviewCard = document.createElement("div");
+    reviewCard.className = "review-card";
+
+    const reviewHeader = document.createElement("div");
+    reviewHeader.className = "review-header";
+
+    const reviewName = document.createElement("div");
+    reviewName.className = "review-name";
+    reviewName.textContent = review.name;
+
+    const reviewStars = document.createElement("div");
+    reviewStars.className = "review-stars";
+    reviewStars.textContent = review.rating;
+
+    reviewHeader.appendChild(reviewName);
+    reviewHeader.appendChild(reviewStars);
+
+    const reviewComment = document.createElement("p");
+    reviewComment.textContent = review.comment;
+
+    const reviewDate = document.createElement("div");
+    reviewDate.className = "review-date";
+    reviewDate.textContent = review.date;
+
+    reviewCard.appendChild(reviewHeader);
+    reviewCard.appendChild(reviewComment);
+    reviewCard.appendChild(reviewDate);
+
+    container.appendChild(reviewCard);
+  });
+}
+
+
+// ==========================================
+// SECURITY HELPER
+// ==========================================
+
+function escapeHtml(text) {
+  const div = document.createElement("div");
+
+  div.textContent = text;
+
+  return div.innerHTML;
+}
+
+
+// Load reviews when page opens
+displayReviews();
+
+
+// ==========================================
+// FOOTER YEAR
+// ==========================================
+
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+
+// ==========================================
+// SQUARE JUMP GAME
+// ==========================================
+
+const canvas = document.getElementById("game-canvas");
+const ctx = canvas.getContext("2d");
+
+let player;
+let obstacles;
+let score;
+let gameSpeed;
+let gameRunning;
+let gameOver;
+let gameLoop;
+
+
+function startGame() {
+  player = {
+    x: 50,
+    y: 150,
+    width: 25,
+    height: 25,
+    velocityY: 0,
+    jumping: false
+  };
+
+  obstacles = [];
+
+  score = 0;
+
+  gameSpeed = 3;
+
+  gameRunning = true;
+
+  gameOver = false;
+
+  if (gameLoop) {
+    cancelAnimationFrame(gameLoop);
+  }
+
+  gameLoop = requestAnimationFrame(updateGame);
+}
+
+
+function jump() {
+  if (!gameRunning) {
+    return;
+  }
+
+  if (!player.jumping) {
+    player.velocityY = -10;
+    player.jumping = true;
+  }
+}
+
+
+function createObstacle() {
+  const obstacle = {
+    x: canvas.width,
+    y: 175,
+    width: 20,
+    height: 25
+  };
+
+  obstacles.push(obstacle);
+}
+
+
+function checkCollision(a, b) {
+  return (
+    a.x < b.x + b.width &&
+    a.x + a.width > b.x &&
+    a.y < b.y + b.height &&
+    a.y + a.height > b.y
+  );
+}
+
+
+let obstacleTimer = 0;
+
+
+function updateGame() {
+  if (!gameRunning) {
+    drawGame();
+    return;
+  }
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Player gravity
+  player.velocityY += 0.5;
+
+  player.y += player.velocityY;
+
+  // Ground
+  if (player.y >= 150) {
+    player.y = 150;
+    player.velocityY = 0;
+    player.jumping = false;
+  }
+
+  // Create obstacles
+  obstacleTimer++;
+
+  if (obstacleTimer > 100) {
+    createObstacle();
+    obstacleTimer = 0;
+  }
+
+  // Move obstacles
+  for (let i = obstacles.length - 1; i >= 0; i--) {
+    obstacles[i].x -= gameSpeed;
+
+    if (checkCollision(player, obstacles[i])) {
+      gameRunning = false;
+      gameOver = true;
+    }
+
+    if (obstacles[i].x + obstacles[i].width < 0) {
+      obstacles.splice(i, 1);
+      score++;
+    }
+  }
+
+  // Increase speed
+  if (score > 0 && score % 5 === 0) {
+    gameSpeed = 3 + score * 0.1;
+  }
+
+  drawGame();
+
+  if (gameRunning) {
+    gameLoop = requestAnimationFrame(updateGame);
+  }
+}
+
+
+function drawGame() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Ground
+  ctx.fillStyle = "#dc2626";
+  ctx.fillRect(0, 180, canvas.width, 2);
+
+  // Player
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(
+    player.x,
+    player.y,
+    player.width,
+    player.height
+  );
+
+  // Obstacles
+  ctx.fillStyle = "#dc2626";
+
+  obstacles.forEach(function (obstacle) {
+    ctx.fillRect(
+      obstacle.x,
+      obstacle.y,
+      obstacle.width,
+      obstacle.height
+    );
+  });
+
+  // Score
+  ctx.fillStyle = "#ffffff";
+  ctx.font = "16px Fira Code";
+  ctx.fillText("Score: " + score, 10, 25);
+
+  // Game over
+  if (gameOver) {
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "24px Fira Code";
+    ctx.fillText(
+      "GAME OVER",
+      125,
+      90
+    );
+
+    ctx.font = "14px Fira Code";
+    ctx.fillText(
+      "Press Restart",
+      140,
+      115
+    );
+  }
+}
+
+
+// Keyboard controls
+document.addEventListener("keydown", function (event) {
+  if (event.code === "Space") {
+    event.preventDefault();
+    jump();
+  }
+});
+
+
+// Mouse / click controls
+canvas.addEventListener("click", function () {
+  jump();
+});
+
+
+// Restart button
+function resetGame() {
+  startGame();
+}
+
+
+// Start the game
+startGame();
 ```
 
 
