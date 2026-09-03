@@ -1,294 +1,391 @@
 ```javascript
 // ========================================
-// WEBSITE QUESTIONNAIRE
+// QUESTIONNAIRE
 // ========================================
 
-// Get the questionnaire elements
-const websiteGoal = document.getElementById("website-goal");
-const pageCount = document.getElementById("page-count");
-const visualStyle = document.getElementById("visual-style");
+const goal = document.getElementById("website-goal");
+const pages = document.getElementById("page-count");
+const style = document.getElementById("visual-style");
 const features = document.getElementById("features");
-const projectBrief = document.getElementById("project-brief");
+const brief = document.getElementById("project-brief");
 
-// Update the project brief
-function updateProjectBrief() {
 
-  let goal = websiteGoal.value;
+function updateBrief() {
 
-  let pages = pageCount.value;
+    if (!goal || !pages || !style || !features || !brief) {
+        return;
+    }
 
-  let style = visualStyle.value;
-
-  let featureList = features.value;
-
-  // If nothing was entered, show default text
-  if (goal === "") {
-    goal = "Not specified yet";
-  }
-
-  if (style === "") {
-    style = "Not specified yet";
-  }
-
-  if (featureList === "") {
-    featureList = "None specified yet";
-  }
-
-  // Update the page
-  projectBrief.innerHTML =
-    "1. Main Goal: " + goal + "<br>" +
-    "2. Pages Needed: " + pages + "<br>" +
-    "3. Visual Style: " + style + "<br>" +
-    "4. Features Needed: " + featureList;
+    brief.value =
+        "Website Goal: " + goal.value + "\n" +
+        "Number of Pages: " + pages.value + "\n" +
+        "Visual Style: " + style.value + "\n" +
+        "Features: " + features.value;
 }
 
 
-// Update the brief whenever the user types
-websiteGoal.addEventListener("input", updateProjectBrief);
+if (goal) {
+    goal.addEventListener("change", updateBrief);
+}
 
-pageCount.addEventListener("change", updateProjectBrief);
+if (pages) {
+    pages.addEventListener("change", updateBrief);
+}
 
-visualStyle.addEventListener("input", updateProjectBrief);
+if (style) {
+    style.addEventListener("change", updateBrief);
+}
 
-features.addEventListener("input", updateProjectBrief);
+if (features) {
+    features.addEventListener("input", updateBrief);
+}
 
-
-// ========================================
-// SEND EMAIL
-// ========================================
-
-const sendEmailButton = document.getElementById("send-email");
-
-sendEmailButton.addEventListener("click", function() {
-
-  const name = document.getElementById("contact-name").value;
-
-  const email = document.getElementById("contact-email").value;
-
-  const message = document.getElementById("contact-message").value;
-
-  // Check if required information was entered
-  if (name === "" || email === "" || message === "") {
-    alert("Please fill out your name, email, and project details.");
-    return;
-  }
-
-  // Create the email
-  const subject = "Website Project Request from " + name;
-
-  const body =
-    "Name: " + name + "\n" +
-    "Email: " + email + "\n\n" +
-    "Project Details:\n" +
-    message;
-
-  // Opens the user's email program
-  window.location.href =
-    "mailto:?subject=" +
-    encodeURIComponent(subject) +
-    "&body=" +
-    encodeURIComponent(body);
-});
 
 
 // ========================================
-// SUBMIT QUESTION
+// CONTACT / EMAIL
 // ========================================
 
-const submitQuestionButton =
-  document.getElementById("submit-question");
+const sendEmail = document.getElementById("send-email");
 
-submitQuestionButton.addEventListener("click", function() {
 
-  const question =
-    document.getElementById("new-question").value;
+if (sendEmail) {
 
-  if (question === "") {
-    alert("Please type a question first.");
-    return;
-  }
+    sendEmail.addEventListener("click", function () {
 
-  alert("Thanks! Your question was submitted.");
+        const name =
+            document.getElementById("contact-name").value.trim();
 
-  document.getElementById("new-question").value = "";
-});
+        const email =
+            document.getElementById("contact-email").value.trim();
+
+        const message =
+            document.getElementById("contact-message").value.trim();
+
+
+        if (name === "" || email === "" || message === "") {
+
+            alert("Please fill out all fields.");
+
+            return;
+        }
+
+
+        const subject =
+            "Website Request from " + name;
+
+
+        const body =
+            "Name: " + name + "\n" +
+            "Email: " + email + "\n\n" +
+            "Message:\n" + message;
+
+
+        window.location.href =
+            "mailto:?subject=" +
+            encodeURIComponent(subject) +
+            "&body=" +
+            encodeURIComponent(body);
+
+    });
+
+}
+
 
 
 // ========================================
-// CLIENT REVIEWS
+// FAQ QUESTION
 // ========================================
 
-const postReviewButton =
-  document.getElementById("post-review");
+const submitQuestion =
+    document.getElementById("submit-question");
 
-postReviewButton.addEventListener("click", function() {
 
-  const name =
-    document.getElementById("review-name").value;
+if (submitQuestion) {
 
-  const rating =
-    document.getElementById("review-rating").value;
+    submitQuestion.addEventListener("click", function () {
 
-  const review =
-    document.getElementById("review-text").value;
+        const question =
+            document.getElementById("new-question").value.trim();
 
-  if (name === "" || review === "") {
-    alert("Please enter your name and review.");
-    return;
-  }
 
-  // Create a new review
-  const reviewBox = document.createElement("div");
+        if (question === "") {
 
-  reviewBox.className = "project-card";
+            alert("Please enter a question.");
 
-  reviewBox.style.marginTop = "2rem";
+            return;
+        }
 
-  reviewBox.innerHTML =
-    "<h3>" + name + "</h3>" +
-    "<p>" + rating + "</p>" +
-    "<p>" + review + "</p>";
 
-  // Add review to the Reviews section
-  document.getElementById("reviews").appendChild(reviewBox);
+        alert("Thanks! Your question was submitted.");
 
-  // Clear the form
-  document.getElementById("review-name").value = "";
 
-  document.getElementById("review-text").value = "";
+        document.getElementById("new-question").value = "";
 
-  alert("Your review has been posted!");
-});
+    });
+
+}
+
+
+
+// ========================================
+// REVIEWS
+// ========================================
+
+const postReview =
+    document.getElementById("post-review");
+
+
+// Load reviews when the page opens
+loadReviews();
+
+
+if (postReview) {
+
+    postReview.addEventListener("click", function () {
+
+        const name =
+            document.getElementById("review-name").value.trim();
+
+
+        const rating =
+            document.getElementById("review-rating").value;
+
+
+        const review =
+            document.getElementById("review-text").value.trim();
+
+
+        // Check that the user entered everything
+        if (name === "" || review === "") {
+
+            alert("Please enter your name and review.");
+
+            return;
+        }
+
+
+        // Get reviews already saved
+        let reviews =
+            JSON.parse(localStorage.getItem("reviews")) || [];
+
+
+        // Add the new review
+        reviews.push({
+
+            name: name,
+
+            rating: rating,
+
+            review: review
+
+        });
+
+
+        // Save the reviews
+        localStorage.setItem(
+            "reviews",
+            JSON.stringify(reviews)
+        );
+
+
+        // Clear the form
+        document.getElementById("review-name").value = "";
+
+        document.getElementById("review-rating").value = "5";
+
+        document.getElementById("review-text").value = "";
+
+
+        // Display the review immediately
+        loadReviews();
+
+
+        alert("Your review was posted!");
+
+    });
+
+}
+
+
+
+// ========================================
+// LOAD REVIEWS
+// ========================================
+
+function loadReviews() {
+
+    const reviews =
+        JSON.parse(localStorage.getItem("reviews")) || [];
+
+
+    const reviewsSection =
+        document.getElementById("reviews");
+
+
+    if (!reviewsSection) {
+        return;
+    }
+
+
+    // Remove reviews already displayed
+    const oldReviews =
+        reviewsSection.querySelectorAll(".saved-review");
+
+
+    oldReviews.forEach(function (review) {
+
+        review.remove();
+
+    });
+
+
+    // Display every saved review
+    reviews.forEach(function (item) {
+
+        const reviewCard =
+            document.createElement("div");
+
+
+        reviewCard.className =
+            "project-card saved-review";
+
+
+        reviewCard.style.marginTop = "20px";
+
+
+        reviewCard.innerHTML =
+
+            "<h3>" +
+            item.name +
+            "</h3>" +
+
+            "<p>Rating: " +
+            item.rating +
+            "/5 ⭐</p>" +
+
+            "<p>" +
+            item.review +
+            "</p>";
+
+
+        reviewsSection.appendChild(reviewCard);
+
+    });
+
+}
+
 
 
 // ========================================
 // SQUARE JUMP GAME
 // ========================================
 
-// Get the restart button
-const restartGameButton =
-  document.getElementById("restart-game");
+const gameArea =
+    document.getElementById("game-area");
 
-// Create the game area
-const gameArea = document.createElement("div");
+const player =
+    document.getElementById("player");
 
-gameArea.style.width = "100%";
-gameArea.style.height = "250px";
-gameArea.style.background = "#171717";
-gameArea.style.border = "2px solid #262626";
-gameArea.style.borderRadius = "10px";
-gameArea.style.position = "relative";
-gameArea.style.overflow = "hidden";
-gameArea.style.marginBottom = "1rem";
-
-// Create the player
-const player = document.createElement("div");
-
-player.style.width = "40px";
-player.style.height = "40px";
-player.style.background = "#dc2626";
-player.style.position = "absolute";
-player.style.bottom = "0";
-player.style.left = "50px";
-player.style.borderRadius = "5px";
-
-// Add game area to the page
-const gameSection = document.getElementById("game");
-
-gameSection.insertBefore(gameArea, gameSection.querySelector("div"));
-
-gameArea.appendChild(player);
+const restartGame =
+    document.getElementById("restart-game");
 
 
-// ========================================
-// GAME VARIABLES
-// ========================================
+let jumping = false;
 
-let isJumping = false;
-
-let jumpHeight = 120;
-
-
-// ========================================
-// JUMP FUNCTION
-// ========================================
 
 function jump() {
 
-  if (isJumping) {
-    return;
-  }
+    if (jumping || !player) {
+        return;
+    }
 
-  isJumping = true;
 
-  let position = 0;
+    jumping = true;
 
-  // Move up
-  const upInterval = setInterval(function() {
 
-    position += 5;
+    let position = 0;
 
-    player.style.bottom = position + "px";
 
-    if (position >= jumpHeight) {
+    // Move up
+    const up = setInterval(function () {
 
-      clearInterval(upInterval);
-
-      // Move back down
-      const downInterval = setInterval(function() {
-
-        position -= 5;
+        position += 5;
 
         player.style.bottom = position + "px";
 
-        if (position <= 0) {
 
-          clearInterval(downInterval);
+        if (position >= 100) {
 
-          player.style.bottom = "0px";
+            clearInterval(up);
 
-          isJumping = false;
+
+            // Move down
+            const down = setInterval(function () {
+
+                position -= 5;
+
+                player.style.bottom =
+                    position + "px";
+
+
+                if (position <= 0) {
+
+                    clearInterval(down);
+
+                    jumping = false;
+
+                }
+
+            }, 20);
+
         }
 
-      }, 20);
+    }, 20);
 
-    }
-
-  }, 20);
 }
 
 
-// ========================================
-// CONTROLS
-// ========================================
 
-// Spacebar
-document.addEventListener("keydown", function(event) {
+// Spacebar jumps
+document.addEventListener("keydown", function (event) {
 
-  if (event.code === "Space") {
+    if (event.code === "Space") {
 
-    event.preventDefault();
+        event.preventDefault();
 
-    jump();
-  }
+        jump();
+
+    }
 
 });
 
 
-// Click to jump
-gameArea.addEventListener("click", function() {
 
-  jump();
+// Clicking the game also jumps
+if (gameArea) {
 
-});
+    gameArea.addEventListener("click", function () {
+
+        jump();
+
+    });
+
+}
+
 
 
 // Restart game
-restartGameButton.addEventListener("click", function() {
+if (restartGame) {
 
-  player.style.bottom = "0px";
+    restartGame.addEventListener("click", function () {
 
-  isJumping = false;
+        player.style.bottom = "0px";
 
-});
+        jumping = false;
+
+    });
+
+}
 ```
+
