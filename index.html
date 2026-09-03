@@ -1,4 +1,3 @@
-<!doctype html>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -94,7 +93,7 @@
       /* Layout Sections */
       section {
         min-height: 100vh;
-        padding: 6rem 2rem 4rem;
+        padding: 8rem 2rem 4rem;
         max-width: 1000px;
         margin: 0 auto;
         display: flex;
@@ -128,7 +127,7 @@
       }
 
       /* Hero Section */
-      #hero {
+      #about {
         align-items: center;
         text-align: center;
       }
@@ -140,6 +139,16 @@
         gap: 2rem;
         margin-bottom: 2rem;
         flex-wrap: wrap;
+      }
+
+      .profile-pic {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid var(--accent);
+        box-shadow: 0 0 20px rgba(220, 38, 38, 0.35);
+        margin-bottom: 1.5rem;
       }
 
       .avatar-container {
@@ -530,7 +539,8 @@
     <!-- Navigation -->
     <nav>
       <ul>
-        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
         <li><a href="#work">Work</a></li>
         <li><a href="#questionnaire">Questionnaire</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -540,9 +550,8 @@
       </ul>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="hero">
-      <!-- Test Banner -->
+    <!-- About / Hero Section -->
+    <section id="about" class="hero">
       <div class="test-notice-banner">⚠️ DO NOT PAY - JUST A TEST ⚠️</div>
 
       <div class="hero-profile-wrapper">
@@ -551,7 +560,8 @@
             <img
               id="profile-image"
               src="profile.jpg"
-              alt="Jarrelle Moten Profile Picture"
+              alt="Profile Picture"
+              class="profile-pic"
             />
           </div>
           <div
@@ -576,7 +586,6 @@
           </div>
         </div>
 
-        <!-- Pricing & CashApp Card -->
         <div class="pricing-cashapp-card">
           <div class="pricing-tag">$20 <span>Flat Rate</span></div>
           <p class="pricing-desc">
@@ -586,8 +595,32 @@
         </div>
       </div>
 
-      <h1 class="hero-heading">Jarrelle Moten</h1>
-      <p class="hero-subheading">Hi, I Make Websites.</p>
+      <h1 class="hero-heading">I Make Websites</h1>
+      <p class="hero-subheading">
+        Custom, high-performance Web development & design.
+      </p>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+      <h2 class="section-title">Services</h2>
+      <p style="margin-bottom: 1.5rem; color: var(--text-muted)">
+        Custom website creation tailored to your personal or business needs.
+      </p>
+      <div class="portfolio-grid">
+        <div class="portfolio-card">
+          <h3>Web Development</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem">
+            Clean, semantic HTML, modern CSS styling, and responsive code built from scratch.
+          </p>
+        </div>
+        <div class="portfolio-card">
+          <h3>UI/UX Design</h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem">
+            Sleek layouts, dark-mode styling, dynamic client features, and custom styling.
+          </p>
+        </div>
+      </div>
     </section>
 
     <!-- Portfolio Section -->
@@ -782,7 +815,6 @@
         </div>
       </div>
 
-      <!-- Submit a Question -->
       <div style="margin-top: 2rem">
         <h3 style="margin-bottom: 1rem; color: var(--accent-light)">
           Have a new question?
@@ -810,7 +842,6 @@
         Leave feedback or read what past clients have to say.
       </p>
 
-      <!-- Review Form -->
       <form id="review-form" onsubmit="addReview(event)">
         <div class="form-group">
           <label for="reviewer-name">Your Name</label>
@@ -844,7 +875,6 @@
         <button type="submit" class="btn">Post Review</button>
       </form>
 
-      <!-- Display Reviews -->
       <div class="reviews-list" id="reviews-container"></div>
     </section>
 
@@ -1201,124 +1231,4 @@
       });
     </script>
   </body>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>I Make Websites</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --bg-color: #000000;
-      --card-bg: #120a0a;
-      --border-color: #3b1111;
-      --text-main: #ffffff;
-      --text-muted: #d1d5db;
-      --accent: #dc2626;
-      --accent-hover: #b91c1c;
-      --accent-light: #ef4444;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      font-family: "Plus Jakarta Sans", sans-serif;
-      line-height: 1.6;
-      scroll-behavior: smooth;
-    }
-
-    code, pre, .code-font {
-      font-family: "Fira Code", monospace;
-    }
-
-    h1, h2, h3, .section-title, .hero-heading, .hero-subheading, .pricing-tag, .brief-summary-title {
-      font-family: "Syne", sans-serif;
-    }
-
-    /* Navigation */
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-color);
-      z-index: 1000;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    nav ul {
-      display: flex;
-      list-style: none;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    nav a {
-      color: var(--text-main);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: color 0.2s;
-    }
-
-    nav a:hover {
-      color: var(--accent);
-    }
-
-    /* Hero Section & Profile Picture Styles */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 8rem 2rem 4rem;
-    }
-
-    .profile-pic {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--accent);
-      box-shadow: 0 0 20px rgba(220, 38, 38, 0.35);
-      margin-bottom: 1.5rem;
-    }
-  </style>
-</head>
-<body>
-
-  <nav>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-
-  <section class="hero" id="about">
-    <!-- Profile Picture Added Here -->
-    <img src="profile.jpg" alt="Profile Picture" class="profile-pic">
-    
-    <h1 class="hero-heading">I Make Websites</h1>
-    <p class="hero-subheading">Custom, high-performance Web development & design.</p>
-  </section>
-
-</body>
 </html>
